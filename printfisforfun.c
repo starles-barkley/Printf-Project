@@ -3,48 +3,43 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include "main.h"
+
 /**
  * printfisforfun - function that produces output according to a format
  * @format: character string that handles conversion specifiers
- * Return: void
+ * Return: number of characters printed
  */
-void printfisforfun(const char *format, ...)
-{
-	int count = 0;
-	va_list args;
-	va_start(args, format);
 
-	while (*format != '\0')
+int printfisforfun(const char *format, ...)
+{
+	if (format != '\0')
 	{
-		if (*format != '%')
+		int count = 0, i;
+		int (*m)(va_list);
+		va_list args;
+
+		va_start(args, format);
+		i = 0;
+		if (format[0] == '%' && format[1] == '\0')
+			return (-1);
+		while (format != '\0' && format[i] != '\0')
 		{
-			putchar(*format);
-			count++;
-		}
-		else 
-		{
-			format++;
-		}
-			if (*format == 'c')
-			{	
-				int character = va_arg(args, int);
-				putchar(character);
-				count++;
-			}
-			else if (*format == 's')
+			if (format[i] == '%')
 			{
-				const char *str = va_arg(args, const char *)
-			
-				while (*str != '\0')
+				if (format [i + 1] == '%')
 				{
-					putchar(*str);
-					count++;
-					str++;
+					count += _putchar(format[i]);
+					i + 2;
 				}
-			
-			else if (*format == '%')
-			{
-				putchar('%');
-				count++;
 			}
-	format++;
+		}
+		else
+		{
+			count += _putchar(format[i]);
+			i++;
+		}
+	}
+	va_end(args);
+	return (count);
+}
+return (-1);
