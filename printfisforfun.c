@@ -42,6 +42,10 @@ void printfisforfun(const char *format, ...)
 					count++;
 					str++;
 				}
-
-
+			else if (*format == '%')
+			{
+				putchar('%');
+				count++;
+			}
+	format++;
 }
