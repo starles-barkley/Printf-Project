@@ -47,6 +47,18 @@ int _printf(const char *format, ...)
                 putchar('%');
                 count++;
             }
+            else if (*p == 'd' || *p == 'i')
+            {
+                int i = va_arg(args, int);
+                char buffer[100];
+
+                sprintf(buffer, "%d", i);
+                for (char *bp = buffer; *bp != '\0'; bp++)
+                {
+                    putchar(*bp);
+                    count++;
+                }
+            }
             else
             {
                 putchar('%');
