@@ -10,11 +10,11 @@
  */
 int _printf(const char *format, ...)
 {
-    va_list args;
+    va_list args; /* declared variable of type va_list to hold variable arguments */
     int count = 0;
     char *p;
-    char *sp;
-    char *bp;
+    char *sp; /* declared pointer to current character in string arg */
+    char *bp; /* declared pointer to current character in buffer */
     char buffer[100];
 
     va_start(args, format);
@@ -24,17 +24,23 @@ int _printf(const char *format, ...)
     {
         if (*p != '%')
         {
-            putchar(*p);
+            _putchar(*p);
             count++;
         }
         else
         {
             p++;
 
+            if (*p == '\0')
+            {
+                _putchar('%');
+                count++;
+                break;
+            }
             if (*p == 'c')
             {
                 char c = va_arg(args, int);
-                putchar(c);
+                _putchar(c);
                 count++;
             }
             else if (*p == 's')
@@ -44,14 +50,14 @@ int _printf(const char *format, ...)
 
                 while (*sp != '\0')
                 {
-                    putchar(*sp);
+                    _putchar(*sp);
                     count++;
                     sp++;
                 }
             }
             else if (*p == '%')
             {
-                putchar('%');
+                _putchar('%');
                 count++;
             }
             else if (*p == 'd' || *p == 'i')
@@ -61,15 +67,15 @@ int _printf(const char *format, ...)
                 bp = buffer;
                 while (*bp != '\0')
                 {
-                    putchar(*bp);
+                    _putchar(*bp);
                     count++;
                     bp++;
                 }
             }
             else
             {
-                putchar('%');
-                putchar(*p);
+                _putchar('%');
+                _putchar(*p);
                 count += 2;
             }
         }
