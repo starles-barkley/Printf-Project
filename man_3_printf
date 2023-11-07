@@ -1,0 +1,24 @@
+.TH man 3 "printfisforfun man page"
+.SH NAME
+printfisforfun
+.SH SYNOPSIS
+.B it's printf but different
+.br
+.B int printfisforfun(const char *format, ...);
+.SH DESCRIPTION
+.PP
+printfisforfun is a variadic function that produces an output according to a format string.
+.PP
+The format string can handle these conversion specifiers:
+.br
+\- 'c' for characters
+.br
+\- 's' for strings
+.br
+\- '%' for a literal '%' character
+.br
+\- 'd' for signed decimal integers
+.br
+\- 'i' for dec, hex, and oct integers
+.SH "RETURN VALUE"
+printfisforfun returns the number of characters printed.
