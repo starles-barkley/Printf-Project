@@ -3,14 +3,12 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include "main.h"
-
 /**
- * printfisforfun - function that produces output according to a format
+ * _printf - function that produces output according to a format
  * @format: character string that handles conversion specifiers
  * Return: number of characters printed
  */
-
-int printfisforfun(const char *format, ...)
+int _printf(const char *format, ...)
 {
 	if (format != '\0')
 	{
