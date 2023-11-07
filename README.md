@@ -19,3 +19,7 @@ Files included in this repository include:
 - _putchar.c
 - main.h
 - man_3_printf.3
+
+## Flowchart of the _printf function layout:
+
+![image](https://github.com/starles-barkley/holbertonschool-printf/assets/144153159/5f3db037-a661-4fcf-aa25-e477cdf262bf)
