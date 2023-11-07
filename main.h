@@ -1,5 +1,5 @@
-#ifndef  MAIN H
-#define  MAIN H
+#ifndef  MAIN
+#define  MAIN
 
 int _printf(const char *format, ...);
 
