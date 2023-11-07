@@ -10,10 +10,9 @@
  */
 void printfisforfun(const char *format, ...)
 {
+	int count = 0;
 	va_list args;
 	va_start(args, format);
-
-	int count = 0;
 
 	while (*format != '\0')
 	{
@@ -35,17 +34,17 @@ void printfisforfun(const char *format, ...)
 			else if (*format == 's')
 			{
 				const char *str = va_arg(args, const char *)
-			}
+			
 				while (*str != '\0')
 				{
 					putchar(*str);
 					count++;
 					str++;
 				}
+			
 			else if (*format == '%')
 			{
 				putchar('%');
 				count++;
 			}
 	format++;
-}
