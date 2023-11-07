@@ -10,15 +10,15 @@
  */
 int _printf(const char *format, ...)
 {
-    va_list args; /* declared variable of type va_list to hold variable arguments */
+    va_list args; /* variable of type va_list to hold variable arguments */
     int count = 0;
-    char *p;
-    char *sp; /* declared pointer to current character in string arg */
-    char *bp; /* declared pointer to current character in buffer */
-    char buffer[100];
+    char *p; /* basic pointer to current character in format string */
+    char *sp; /* pointer to current character in string arg */
+    char *bp; /* pointer to current character in buffer */
+    char buffer[100]; /* char array that holds the converted integer as a string */
 
-    va_start(args, format);
-    p = (char *)format;
+    va_start(args, format); /* initializes va_list object args for _printf */
+    p = (char *)format; /* format string assigned to pointer */
 
     while (*p != '\0')
     {
@@ -45,8 +45,8 @@ int _printf(const char *format, ...)
             }
             else if (*p == 's')
             {
-                char *s = va_arg(args, char *);
-                sp = s;
+                char *s = va_arg(args, char *); /* retrieves next argument from variable argument list args and interprets it as char* */
+                sp = s; /* assigns string pointer to current character in string */
 
                 while (*sp != '\0')
                 {
@@ -60,11 +60,11 @@ int _printf(const char *format, ...)
                 _putchar('%');
                 count++;
             }
-            else if (*p == 'd' || *p == 'i')
+            else if (*p == 'd' || *p == 'i') /* checking if next character is d or i */
             {
-                int i = va_arg(args, int);
-                sprintf(buffer, "%d", i);
-                bp = buffer;
+                int i = va_arg(args, int); /* retrieves next argument from variable argument list args and interprets it as int */
+                sprintf(buffer, "%d", i); /* convert the integer to a string and store it in the buffer */
+                bp = buffer; /* buffer pointer becomes current character in buffer */
                 while (*bp != '\0')
                 {
                     _putchar(*bp);
@@ -74,9 +74,9 @@ int _printf(const char *format, ...)
             }
             else
             {
-                _putchar('%');
+                _putchar('%'); 
                 _putchar(*p);
-                count += 2;
+                count += 2; /* increments count variable by 2 as to not get stumped by % */
             }
         }
         p++;
