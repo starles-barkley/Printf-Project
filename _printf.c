@@ -1,80 +1,64 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
 #include <stdarg.h>
 #include "main.h"
-/**
- * _printf - function that produces output according to a format
- * @format: character string that handles conversion specifiers
- * Return: number of characters printed
- */
-int _printf(const char *format, ...)
-{
+
+int _printf(const char *format, ...) {
+    if (format == NULL) {
+        return -1; // Handle NULL format string
+    }
+
     va_list args;
     int count = 0;
-    char *p;
-    char *sp;
-    char *bp;
-    char buffer[100];
 
     va_start(args, format);
-    p = (char *)format;
-
-    while (*p != '\0')
-    {
-        if (*p != '%')
-        {
-            putchar(*p);
+    while (*format != '\0') {
+        if (*format != '%') {
+            putchar(*format);
             count++;
-        }
-        else
-        {
-            p++;
-
-            if (*p == 'c')
-            {
-                char c = va_arg(args, int);
-                putchar(c);
-                count++;
+        } else {
+            format++;
+            if (*format == '\0') {
+                break; // Format ends with '%', handle it as needed
             }
-            else if (*p == 's')
-            {
-                char *s = va_arg(args, char *);
-                sp = s;
 
-                while (*sp != '\0')
-                {
-                    putchar(*sp);
+            switch (*format) {
+                case 'c': {
+                    char c = va_arg(args, int);
+                    putchar(c);
                     count++;
-                    sp++;
+                    break;
+                }
+                case 's': {
+                    char *s = va_arg(args, char *);
+                    if (s != NULL) {
+                        while (*s != '\0') {
+                            putchar(*s);
+                            s++;
+                            count++;
+                        }
+                    } else {
+                        // Handle NULL string pointer
+                        printf("(null)");
+                        count += 6;
+                    }
+                    break;
+                }
+                case '%': {
+                    putchar('%');
+                    count++;
+                    break;
+                }
+                default: {
+                    // Handle unsupported format specifier
+                    putchar('%');
+                    putchar(*format);
+                    count += 2;
+                    break;
                 }
             }
-            else if (*p == '%')
-            {
-                putchar('%');
-                count++;
-            }
-            else if (*p == 'd' || *p == 'i')
-            {
-                int i = va_arg(args, int);
-                sprintf(buffer, "%d", i);
-                bp = buffer;
-                while (*bp != '\0')
-                {
-                    putchar(*bp);
-                    count++;
-                    bp++;
-                }
-            }
-            else
-            {
-                putchar('%');
-                putchar(*p);
-                count += 2;
-            }
         }
-        p++;
+        format++;
     }
     va_end(args);
-    return (count);
+    return count;
 }
