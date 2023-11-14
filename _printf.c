@@ -13,9 +13,14 @@ int _printf(const char *format, ...)
     va_list args;
     int count = 0;
     char *p;
+    char *sp;
+    char *bp;
+    char buffer[100];
 
     va_start(args, format);
-    for (p = (char *)format; *p != '\0'; p++)
+    p = (char *)format;
+
+    while (*p != '\0')
     {
         if (*p != '%')
         {
@@ -25,6 +30,7 @@ int _printf(const char *format, ...)
         else
         {
             p++;
+
             if (*p == 'c')
             {
                 char c = va_arg(args, int);
@@ -34,18 +40,31 @@ int _printf(const char *format, ...)
             else if (*p == 's')
             {
                 char *s = va_arg(args, char *);
-                char *sp;
+                sp = s;
 
-                for (sp = s; *sp != '\0'; sp++)
+                while (*sp != '\0')
                 {
                     putchar(*sp);
                     count++;
+                    sp++;
                 }
             }
             else if (*p == '%')
             {
                 putchar('%');
                 count++;
+            }
+            else if (*p == 'd' || *p == 'i')
+            {
+                int i = va_arg(args, int);
+                sprintf(buffer, "%d", i);
+                bp = buffer;
+                while (*bp != '\0')
+                {
+                    putchar(*bp);
+                    count++;
+                    bp++;
+                }
             }
             else
             {
@@ -54,6 +73,7 @@ int _printf(const char *format, ...)
                 count += 2;
             }
         }
+        p++;
     }
     va_end(args);
     return (count);
