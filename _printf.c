@@ -13,7 +13,6 @@ int _printf(const char *format, ...)
     va_list args;
     int count = 0;
     char *p;
-
     va_start(args, format);
     for (p = (char *)format; *p != '\0'; p++)
     {
@@ -35,7 +34,6 @@ int _printf(const char *format, ...)
             {
                 char *s = va_arg(args, char *);
                 char *sp;
-
                 for (sp = s; *sp != '\0'; sp++)
                 {
                     _putchar(*sp);
@@ -44,8 +42,20 @@ int _printf(const char *format, ...)
             }
             else if (*p == '%')
             {
-                _putchar('%');
+               _putchar('%');
                 count++;
+            }
+            else if (*p == 'd' || *p == 'i')
+            {
+                int i = va_arg(args, int);
+                char buffer[100];
+
+                sprintf(buffer, "%d", i);
+                for (char *bp = buffer; *bp != '\0'; bp++)
+                {
+                    _putchar(*bp);
+                    count++;
+                }
             }
             else
             {
