@@ -51,7 +51,7 @@ int _printf(const char *format, ...)
             }
             else if (*p == '%')
             {
-                putchar('%');
+                _putchar('%');
                 count++;
             }
             else if (*p == 'd' || *p == 'i')
